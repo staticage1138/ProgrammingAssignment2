@@ -2,8 +2,8 @@
 ## initialize a set of 4 functions as list accesible by the global
 ## environment.  
 
-## cacheSolve checks for a prior calculation of the inverse 'stored' 
-## in a makeCacheMatrix() object.
+## cacheSolve checks for a prior calculation of the inverse stored 
+## in a makeCacheMatrix() 'object'.
 
 makeCacheMatrix <- function(x = matrix) {
         m <- NULL
