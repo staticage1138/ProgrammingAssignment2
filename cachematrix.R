@@ -1,15 +1,35 @@
-## Put comments here that give an overall description of what your
-## functions do
+## makeCacheMatrix creates a list of 4 functions that are used to 
+## initialize a set of 4 functions as list accesible by the global
+## environment.  
 
-## Write a short comment describing this function
+## cacheSolve checks for a prior calculation of the inverse 'stored' 
+## in a makeCacheMatrix() object.
 
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix <- function(x = matrix) {
+        m <- NULL
+        set <- function(y) {
+                x <<- y
+                m <<- NULL
+        }
+                get <- function() x
+                setinv <- function(inv) m <<- inv
+                getinv <- function() m
+                list(set = set, get = get,
+                     setinv = setinv,
+                     getinv = getinv)
 }
 
-
-## Write a short comment describing this function
-
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        ## Check for a cached inverse calculation. 
+        m <- x$getinv()
+        if(!is.null(m)) {
+                ## If cached calculation exists, fetch it.
+                message("getting cached data")
+                return(m)                 
+        }
+        ## If no cached calculation then run solve().
+        data <- x$get() 
+        m <- solve(data)
+        x$setinv(m)
+        m ## Return inverse calculation.
 }
